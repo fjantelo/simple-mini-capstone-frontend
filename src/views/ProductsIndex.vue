@@ -23,7 +23,9 @@ export default {
 
 <template>
   <div v-for="product in products" v-bind:key="product.id">
-    <h3>{{ product.name }}</h3>
+    <h3>
+      <router-link :to="`/products/${product.id}`">{{ product.name }}</router-link>
+    </h3>
     <p>${{ product.price }}</p>
     <img v-bind:src="product.image_url" :alt="product.name" />
   </div>
