@@ -24,5 +24,7 @@ export default {
     <p>Tax: {{ product.formatted.tax }}</p>
     <p>Total: {{ product.formatted.total }}</p>
     <router-link to="/products">Back to all products</router-link>
+    |
+    <router-link v-bind:to="`/products/${product.id}/edit`">Edit product</router-link>
   </div>
 </template>
