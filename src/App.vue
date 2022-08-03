@@ -1,3 +1,21 @@
+<script>
+export default {
+  data: function () {
+    return {
+      isLoggedIn: false,
+      flashMessage: "",
+    };
+  },
+  watch: {
+    $route: function () {
+      this.isLoggedIn = !!localStorage.jwt;
+      this.flashMessage = localStorage.getItem("flashMessage");
+      localStorage.removeItem("flashMessage");
+    },
+  },
+};
+</script>
+
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -21,13 +39,13 @@
           <li class="nav-item">
             <a class="nav-link" href="/products/new">New Product</a>
           </li>
-          <li class="nav-item">
+          <li v-if="!isLoggedIn" class="nav-item">
             <a class="nav-link" href="/signup">Sign up</a>
           </li>
-          <li class="nav-item">
+          <li v-if="!isLoggedIn" class="nav-item">
             <a class="nav-link" href="/login">Log in</a>
           </li>
-          <li class="nav-item">
+          <li v-if="isLoggedIn" class="nav-item">
             <a class="nav-link disabled">Log out</a>
           </li>
         </ul>
@@ -38,6 +56,7 @@
       </div>
     </div>
   </nav>
+  <div v-if="flashMessage" v-on:click="flashMessage = ''" class="alert">{{ flashMessage }}</div>
   <!-- Older nav bar -->
   <!-- <nav>
     <router-link to="/">Home</router-link>

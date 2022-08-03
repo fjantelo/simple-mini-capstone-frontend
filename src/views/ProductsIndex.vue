@@ -5,6 +5,7 @@ export default {
   data: function () {
     return {
       products: [],
+      currentProduct: {},
     };
   },
   created: function () {
@@ -22,7 +23,12 @@ export default {
 </script>
 
 <template>
-  <div v-for="product in products" v-bind:key="product.id">
+  <div
+    v-for="product in products"
+    v-bind:key="product.id"
+    v-on:click="currentProduct = product"
+    v-bind:class="{ selected: product === currentProduct }"
+  >
     <h3>
       <router-link :to="`/products/${product.id}`">{{ product.name }}</router-link>
     </h3>
@@ -30,3 +36,10 @@ export default {
     <img v-bind:src="product.image_url" :alt="product.name" />
   </div>
 </template>
+
+<style>
+.selected {
+  color: dodgerblue;
+  background-color: chartreuse;
+}
+</style>
